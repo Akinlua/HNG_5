@@ -1,7 +1,25 @@
+const fs = require('fs');
+const url = "http://127.0.0.1:3000"
+
+const deleteFile = async (filename) => {
+
+    //delete uploaded file
+    const filePath = `upload/${filename}`; // Replace with your file path
+
+    // Use the fs.unlink method to delete the file
+    fs.unlink(filePath, (err) => {
+        if (err) {
+        console.error(err);
+        console.log('Error deleting the file')
+        }
+    })
+}
+
 
 const Upload = async (req, res) => {
 
     try{
+        console.log(req.file)
         if(!req.file){
             return res.status(404).json({
                 error: true,
@@ -10,7 +28,7 @@ const Upload = async (req, res) => {
             })
         }
 
-        if(req.file.mimetype !== 'video/mp4' || req.file.mimetype !== 'video/mpeg' ){
+        if(req.file.mimetype !== 'video/mp4'){
             await deleteFile(req.file.filename)
             return res.status(404).json({
                 error: true,
@@ -30,15 +48,18 @@ const Upload = async (req, res) => {
         // Access the uploaded file details
         const { originalname, filename, path } = req.file;
 
+        console.log(path)
         res.status(200).json({
             error: false,
             status: 200,
             Message: "File Uploaded Successfully",
             originalname, filename, 
-            videoPath: path
+            realPath: path,
+            videoPath_src: `${url}/upload/${filename}`
         })
         // res.render("video", { originalname, filename, path})
     } catch(error) {
+        console.log(error)
         if(req.file.filename){
             await deleteFile(req.file.filename)
         }
