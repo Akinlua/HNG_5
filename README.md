@@ -5,12 +5,9 @@ The REST API allows you to make an operation on a video form data.
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [Prerequisites](#prerequisites)
-3. [Installation](#installation)
-4. [Configuration](#configuration)
-5. [Running the API](#running-the-api)
-6. [API Documentation](#api-documentation)
-7. [Examples](#examples)
+2. [Examples](#examples)
+3. [Error Responses](#error-responses)
+
 
 ## Introduction
 
