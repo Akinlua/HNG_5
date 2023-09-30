@@ -20,7 +20,7 @@ You can use any application such as Postman to make the requests
 
 ### Post A Video
 
-POST /api
+POST /api/upload
 
 Content-Type: multipart/form-data
 
