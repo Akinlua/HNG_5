@@ -4,7 +4,7 @@ const url = "https://hng5.akinlua.repl.co"
 const deleteFile = async (filename) => {
 
     //delete uploaded file
-    const filePath = `upload/${filename}`; // Replace with your file path
+    const filePath = `public/upload/${filename}`; // Replace with your file path
 
     // Use the fs.unlink method to delete the file
     fs.unlink(filePath, (err) => {
@@ -28,7 +28,7 @@ const Upload = async (req, res) => {
             })
         }
 
-        if(req.file.mimetype !== 'video/mp4'){
+        if(req.file.mimetype != 'video/mp4' && req.file.mimetype != 'video/webm' && req.file.mimetype != 'video/mpeg' && req.file.mimetype != 'video/x-matroska'){
             await deleteFile(req.file.filename)
             return res.status(404).json({
                 error: true,
