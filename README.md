@@ -24,9 +24,17 @@ POST /api/upload
 
 Content-Type: multipart/form-data
 
-.Request:
+#### Fields
 
-    FormData{}
+| Field Name | Type    | Description
+| ---------- | ------  |
+| `chunk`    | file    | Get the chunk from file.slice(start, start + chunksize)
+| `totalSize`| number  | Get the file size from file.size
+| `start`    | number  | Get the value from which the file is sliced, initial 0
+| `fileName` | String  | Get the filename from file.name
+| `fileType` | Mimetype| Get the mimetype of the file from file.type
+
+#### Response
 
 .Response:
 
