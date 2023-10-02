@@ -44,8 +44,9 @@ Content-Type: multipart/form-data
     "Message": "File Uploaded Successfully",
     "originalname": "vlc-record-2022-08-13-22h48m54s-Superstore S03E03 - RMTeam, RMZ.cr-.mp4",
     "filename": "Video_1696060225889-vlc-record-2022-08-13-22h48m54s-Superstore S03E03 - RMTeam, RMZ.cr-.mp4",
-    "realPath": "public/upload/Video_1696060225889-vlc-record-2022-08-13-22h48m54s-Superstore S03E03 - RMTeam, RMZ.cr-.mp4",
-    "videoPath_src": "https://hng5.akinlua.repl.co//upload/Video_1696060225889-vlc-record-2022-08-13-22h48m54s-Superstore S03E03 - RMTeam, RMZ.cr-.mp4"
+    "Path": "public/upload/Video_1696060225889-vlc-record-2022-08-13-22h48m54s-Superstore S03E03 - RMTeam, RMZ.cr-.mp4",
+    "videoPath_src": "https://hng5.akinlua.repl.co//upload/Video_1696060225889-vlc-record-2022-08-13-22h48m54s-Superstore S03E03 - RMTeam, RMZ.cr-.mp4",
+    "transcription": "words of transcript"
     }
 
 ## Error Responses
