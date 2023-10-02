@@ -4,47 +4,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Video Uploader</title>
+  <title>Chunked Video Upload</title>
 </head>
 <body>
-  <h1>Upload a Video</h1>
-  <input type="file" id="videoFile" accept="video/*" required>
+  <h1>Chunked Video Upload</h1>
+  <input type="file" id="fileInput">
   <button id="uploadButton">Upload</button>
-
   <script>
-    document.getElementById('uploadButton').addEventListener('click', async () => {
-      const fileInput = document.getElementById('videoFile');
+    const fileInput = document.getElementById('fileInput');
+    const uploadButton = document.getElementById('uploadButton');
+
+    uploadButton.addEventListener('click', () => {
       const file = fileInput.files[0];
-
       if (file) {
-        const formData = new FormData();
-        formData.append('video', file);
+        const chunkSize = 1024 * 1024; // 1MB chunks
+        let start = 0;
+        const totalSize = file.size;
 
-        console.log(formData)
-        try {
-          const response = await fetch('https://hng5.akinlua.repl.co/api/upload', {
+        function uploadNextChunk() {
+          const chunk = file.slice(start, start + chunkSize);
+          start += chunkSize;
+
+          const formData = new FormData();
+          formData.append('chunk', chunk);
+          formData.append('totalSize', totalSize);
+          formData.append('start', start);
+          formData.append('fileName', file.name);
+          formData.append('fileType', file.type);
+
+          console.log(formData)
+          fetch('https://hng5.akinlua.repl.co/api/upload', {
             method: 'POST',
-            body: formData
-          });
-
-  
-          if (response.ok) {
-            const responseData = await response.json();
-            const videoPath = responseData.videoPath;
-            console.log(responseData)
-            console.log(videoPath)
-            const videoElement = document.createElement('video');
-            videoElement.src =  responseData.videoPath_src;
-            videoElement.controls = true;
-            document.body.appendChild(videoElement);
-          } else {
-            const responseData = await response.json();
-            console.log(responseData)
-            console.error('Upload failed');
-          }
-        } catch (error) {
-          console.error('Error:', error);
+            body: formData,
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log(data);
+              if (data.complete) {
+                console.log('File upload complete.');
+              } else {
+                uploadNextChunk();
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
         }
+
+        // Start uploading the first chunk
+        uploadNextChunk();
       }
     });
   </script>
